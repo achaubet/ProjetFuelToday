@@ -3,7 +3,6 @@ package fr.univpau.fueltoday;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,8 +21,8 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
     }
     @Override
     protected JSONObject doInBackground(String... strings) {
-        double lon = Stations.getInstance().longitude;
-        double lat = Stations.getInstance().longitude;
+        double lon = StationsShared.getInstance().longitude;
+        double lat = StationsShared.getInstance().latitude;
         int km = 1;
         int limit = 10;
         String url = "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records?where=within_distance(geom%2C%20GEOM%27POINT(" + lon + "%20" + lat + ")%27%2C%20" + km + "km)&limit=" + limit +"";
@@ -36,7 +35,6 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
             Log.i("JSONApp", str_resp);
             int totalCount = jsonObject.getInt("total_count");
             Log.i("JSONAppObj", String.valueOf(totalCount));
-            //Stations.getInstance().stations = jsonObject;
             return jsonObject;
         } catch (IOException | JSONException e) {
             return  null;

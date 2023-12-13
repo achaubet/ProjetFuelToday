@@ -4,12 +4,12 @@ import android.app.Application;
 
 import org.json.JSONObject;
 
-public class Stations extends Application {
-    private static Stations singleton;
+public class StationsShared extends Application {
+    private static StationsShared singleton;
     public JSONObject stations;
     public double longitude;
     public double latitude;
-    public static Stations getInstance() {
+    public static StationsShared getInstance() {
         return singleton;
     }
     @Override
