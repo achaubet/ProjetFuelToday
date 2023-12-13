@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjetFuelToday</string>
+    <string name="app_name">Fuel Today</string>
     <string name="text_nom">default_name</string>
     <string name="text_prix">default_cost</string>
     <string name="text_dist">default_dist</string>

@@ -7,6 +7,8 @@ import org.json.JSONObject;
 public class Stations extends Application {
     private static Stations singleton;
     public JSONObject stations;
+    public double longitude;
+    public double latitude;
     public static Stations getInstance() {
         return singleton;
     }

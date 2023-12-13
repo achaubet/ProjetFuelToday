@@ -22,8 +22,8 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
     }
     @Override
     protected JSONObject doInBackground(String... strings) {
-        double lon = -0.360448;
-        double lat = 43.319296;
+        double lon = Stations.getInstance().longitude;
+        double lat = Stations.getInstance().longitude;
         int km = 1;
         int limit = 10;
         String url = "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records?where=within_distance(geom%2C%20GEOM%27POINT(" + lon + "%20" + lat + ")%27%2C%20" + km + "km)&limit=" + limit +"";
