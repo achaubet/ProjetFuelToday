@@ -58,11 +58,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button7"
+            <ImageButton
+                android:id="@+id/imageButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                app:srcCompat="@android:drawable/ic_dialog_map" />
+
         </LinearLayout>
 
         <LinearLayout
