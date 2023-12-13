@@ -34,9 +34,17 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
             String str_resp = response.body().string();
             JSONObject jsonObject = new JSONObject(str_resp);
             Log.i("JSONApp", str_resp);
-            return null;
+            int totalCount = jsonObject.getInt("total_count");
+            Log.i("JSONAppObj", String.valueOf(totalCount));
+            //Stations.getInstance().stations = jsonObject;
+            return jsonObject;
         } catch (IOException | JSONException e) {
             return  null;
         }
+    }
+
+    @Override
+    protected void onPostExecute(JSONObject result) {
+        this.activity.updateStations(result); // callback
     }
 }

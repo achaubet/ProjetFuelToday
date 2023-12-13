@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
 
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,4 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         new StationRPC(this).execute();
     }
+
+    protected void updateStations(JSONObject stations) {
+        Stations.getInstance().stations = stations;
+    }
+
 }
