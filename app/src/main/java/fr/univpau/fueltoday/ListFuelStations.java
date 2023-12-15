@@ -23,8 +23,10 @@ public class ListFuelStations {
         for(int i = 0; i < resultsArray.length(); i++) {
             JSONObject firstResult = resultsArray.getJSONObject(i);
             int id = firstResult.getInt("id");
-            String latitude = firstResult.getString("latitude");
-            double longitude = firstResult.getDouble("longitude");
+
+            JSONObject geomObject = firstResult.getJSONObject("geom");
+            double latitude = geomObject.getDouble("lat");
+            double longitude = geomObject.getDouble("lon");
             String cp = firstResult.getString("cp");
             String pop = firstResult.getString("pop");
             String address = firstResult.getString("adresse");

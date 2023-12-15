@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/backgroundlinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -15,18 +16,18 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="80px"
-            android:layout_marginLeft="80px"
+            android:layout_marginRight="40px"
+            android:layout_marginLeft="20px"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_nom"
+                    android:id="@+id/textAdr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/text_nom" />
+                android:text="@string/text_adr" />
 
             <TextView
-                android:id="@+id/text_prix"
+                android:id="@+id/textPrix"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_prix" />
@@ -41,13 +42,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_ouv"
+                android:id="@+id/textOuv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_ouv" />
 
             <TextView
-                android:id="@+id/text_dist"
+                android:id="@+id/textDist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_dist" />
