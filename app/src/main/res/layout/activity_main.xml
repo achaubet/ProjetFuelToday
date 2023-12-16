@@ -18,19 +18,6 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200px"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imgReload"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="bottom"
-                    app:srcCompat="@android:drawable/ic_popup_sync" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 

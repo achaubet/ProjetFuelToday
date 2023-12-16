@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         PositionListener positionListener = new PositionListener();
-        // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
 
         try {
             gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
