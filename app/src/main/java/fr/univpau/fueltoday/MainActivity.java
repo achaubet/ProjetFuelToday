@@ -3,6 +3,7 @@ package fr.univpau.fueltoday;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -17,8 +18,9 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     Location gps_loc;
-
     ListFuelStations listFuelStations;
+    SwipeRefreshLayout swipeRefreshLayout;
+    RefreshListener refreshListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         PositionListener positionListener = new PositionListener();
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 2, positionListener);
+        // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
 
         try {
             gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
             StationsShared.getInstance().latitude = latitude;
             StationsShared.getInstance().longitude = longitude;
         }
+        this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        this.refreshListener = new RefreshListener(this);
+        this.swipeRefreshLayout.setOnRefreshListener(this.refreshListener);
     }
 
     @Override
@@ -65,6 +70,30 @@ public class MainActivity extends AppCompatActivity {
             this.listFuelStations.updateStationsList();
         } catch (JSONException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    protected void updateLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+        try {
+            gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (gps_loc != null) {
+            Location final_loc = gps_loc;
+            double latitude = final_loc.getLatitude();
+            double longitude = final_loc.getLongitude();
+            Log.i("LocationLat", String.valueOf(latitude));
+            Log.i("LocationLon", String.valueOf(longitude));
+            StationsShared.getInstance().latitude = latitude;
+            StationsShared.getInstance().longitude = longitude;
         }
     }
 
