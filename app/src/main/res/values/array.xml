@@ -1,0 +1,15 @@
+<resources>
+    <string-array name="petrol_types">
+        <item>SP95</item>
+        <item>SP95 - E10</item>
+        <item>SP98</item>
+        <item>Diesel</item>
+    </string-array>
+
+    <string-array name="petrol_values">
+        <item>SP95</item>
+        <item>SP95 - E10</item>
+        <item>SP98</item>
+        <item>Diesel</item>
+    </string-array>
+</resources>

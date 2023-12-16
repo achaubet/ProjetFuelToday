@@ -4,4 +4,11 @@
     <string name="text_prix">default_cost</string>
     <string name="text_dist">default_dist</string>
     <string name="text_ouv">default_ouv</string>
+    <string name="settings_name">Paramètres de Fuel Today</string>
+    <string name="radius">Rayon de Recherche</string>
+    <string name="radius_desc">Définir le rayon</string>
+    <string name="radius_title">Entrez le Rayon</string>
+    <string name="fuel_type">Type de Carburant</string>
+    <string name="fuel_type_desc">Définir le type de Carburant</string>
+    <string name="fuel_type_title">Choissisez votre type de carburant</string>
 </resources>

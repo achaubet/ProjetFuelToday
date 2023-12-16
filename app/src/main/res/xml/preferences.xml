@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_name">
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/radius_title"
+            android:inputType="number"
+            android:key="radius_key"
+            android:selectAllOnFocus="true"
+            android:summary="@string/radius_desc"
+            android:title="@string/radius" />
+
+
+        <ListPreference
+            android:defaultValue="unleaded"
+            android:dialogTitle="@string/fuel_type_title"
+            android:entries="@array/petrol_types"
+            android:entryValues="@array/petrol_values"
+            android:key="petrol_type_key"
+            android:summary="@string/fuel_type_desc"
+            android:title="@string/fuel_type" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
