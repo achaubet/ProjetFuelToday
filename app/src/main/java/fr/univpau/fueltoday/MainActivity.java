@@ -22,6 +22,8 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     Location gps_loc;
+    LocationManager locationManager;
+    PositionListener positionListener;
     ListFuelStations listFuelStations;
     SwipeRefreshLayout swipeRefreshLayout;
     RefreshListener refreshListener;
@@ -37,25 +39,11 @@ public class MainActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        PositionListener positionListener = new PositionListener();
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
+        this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        this.positionListener = new PositionListener();
+        this.updateLocation();
+        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
 
-        try {
-            gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (gps_loc != null) {
-            Location final_loc = gps_loc;
-            double latitude = final_loc.getLatitude();
-            double longitude = final_loc.getLongitude();
-            Log.i("LocationLat", String.valueOf(latitude));
-            Log.i("LocationLon", String.valueOf(longitude));
-            StationsShared.getInstance().latitude = latitude;
-            StationsShared.getInstance().longitude = longitude;
-        }
         this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         this.refreshListener = new RefreshListener(this);
         this.swipeRefreshLayout.setOnRefreshListener(this.refreshListener);
@@ -78,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void updateLocation() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
@@ -86,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
         try {
-            gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            gps_loc = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (gps_loc != null) {
-            Location final_loc = gps_loc;
+        if (this.gps_loc != null) {
+            Location final_loc = this.gps_loc;
             double latitude = final_loc.getLatitude();
             double longitude = final_loc.getLongitude();
             Log.i("LocationLat", String.valueOf(latitude));
