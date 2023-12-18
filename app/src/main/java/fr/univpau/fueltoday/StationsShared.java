@@ -9,6 +9,8 @@ public class StationsShared extends Application {
     public JSONObject stations;
     public double longitude;
     public double latitude;
+    public int rayon;
+    public String carburant;
     public static StationsShared getInstance() {
         return singleton;
     }

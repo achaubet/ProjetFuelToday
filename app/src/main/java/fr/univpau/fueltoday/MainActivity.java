@@ -1,13 +1,17 @@
 package fr.univpau.fueltoday;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         this.positionListener = new PositionListener();
         this.updateLocation();
         this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
-
+        this.getPreferences();
         this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         this.refreshListener = new RefreshListener(this);
         this.swipeRefreshLayout.setOnRefreshListener(this.refreshListener);
@@ -91,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateLocation();
+        this.updateLocation();
+        this.getPreferences();
         new StationRPC(this).execute();
     }
 
@@ -111,5 +116,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String radiusValue = sharedPreferences.getString("radius_key", "5");
+        String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "unleaded");
+        Log.i("getPreferences", radiusValue);
+        Log.i("getPreferences", petrolTypeValue);
+        StationsShared.getInstance().rayon = Integer.parseInt(radiusValue);
+        StationsShared.getInstance().carburant = petrolTypeValue;
     }
 }
