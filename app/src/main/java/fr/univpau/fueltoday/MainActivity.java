@@ -120,11 +120,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void getPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String radiusValue = sharedPreferences.getString("radius_key", "5");
-        String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "unleaded");
-        Log.i("getPreferences", radiusValue);
-        Log.i("getPreferences", petrolTypeValue);
-        StationsShared.getInstance().rayon = Integer.parseInt(radiusValue);
+        int radiusValue = sharedPreferences.getInt("radius_key", 5);
+        String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "undefined");
+        // Log.i("getPreferences", radiusValue);
+        // Log.i("getPreferences", petrolTypeValue);
+        StationsShared.getInstance().rayon = radiusValue;
         StationsShared.getInstance().carburant = petrolTypeValue;
     }
 }

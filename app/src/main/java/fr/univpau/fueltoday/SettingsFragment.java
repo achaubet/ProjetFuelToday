@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
 import androidx.preference.PreferenceFragmentCompat;
+
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
@@ -27,7 +27,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, @Nullable String key) {
-        Log.i("updatedPref", key);
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals("radius_key")) {
+            int radiusValue = sharedPreferences.getInt("radius_key", 5);
+            Log.i("updatedPref", "Radius: " + radiusValue + " km");
+        }else if(key.equals("petrol_type_key")) {
+            String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "undefined");
+            Log.i("updatedPref", "Petrol Type: " + petrolTypeValue);
+        }
     }
 }

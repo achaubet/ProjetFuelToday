@@ -7,6 +7,7 @@
     </string-array>
 
     <string-array name="petrol_values">
+        <item>Non défini</item>
         <item>SP95</item>
         <item>SP95 - E10</item>
         <item>SP98</item>

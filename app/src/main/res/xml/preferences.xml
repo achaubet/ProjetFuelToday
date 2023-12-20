@@ -1,20 +1,20 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-        android:title="@string/settings_name">
-
-        <EditTextPreference
+    <PreferenceCategory android:title="@string/settings_name">
+        <SeekBarPreference
+            app:min="1"
+            android:min="1"
+            android:max="50"
             android:defaultValue="5"
             android:dialogTitle="@string/radius_title"
-            android:inputType="number"
             android:key="radius_key"
-            android:selectAllOnFocus="true"
             android:summary="@string/radius_desc"
-            android:title="@string/radius" />
-
+            android:title="@string/radius"
+            app:showSeekBarValue="true" />
 
         <ListPreference
-            android:defaultValue="unleaded"
+            android:defaultValue="undefined"
             android:dialogTitle="@string/fuel_type_title"
             android:entries="@array/petrol_types"
             android:entryValues="@array/petrol_values"
