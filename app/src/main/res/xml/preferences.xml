@@ -14,7 +14,7 @@
             app:showSeekBarValue="true" />
 
         <ListPreference
-            android:defaultValue="sp95"
+            android:defaultValue="SP95"
             android:dialogTitle="@string/fuel_type_title"
             android:entries="@array/petrol_types"
             android:entryValues="@array/petrol_values"

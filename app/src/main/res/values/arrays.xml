@@ -3,14 +3,14 @@
         <item>SP95</item>
         <item>SP95 - E10</item>
         <item>SP98</item>
-        <item>Diesel</item>
+        <item>Gazole</item>
     </string-array>
 
     <string-array name="petrol_values">
-        <item>sp95</item>
-        <item>e10</item>
-        <item>sp98</item>
-        <item>diesel</item>
+        <item>SP95</item>
+        <item>E10</item>
+        <item>SP98</item>
+        <item>Gazole</item>
     </string-array>
 
     <string-array name="service_types">

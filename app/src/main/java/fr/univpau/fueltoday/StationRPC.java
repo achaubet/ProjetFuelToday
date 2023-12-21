@@ -44,6 +44,8 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
             JSONObject jsonObject = new JSONObject(str_resp);
             if(sortBy.equals("byLocation")) {
                 jsonObject = sortResultsByDistance(jsonObject, lat, lon);
+            } else if (sortBy.equals("byPrice")) {
+                jsonObject = sortResultsByPrice(jsonObject, petrolType);
             }
             JSONArray resultsArray = jsonObject.getJSONArray("results");
             return jsonObject;
@@ -51,6 +53,45 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
             return  null;
         }
     }
+
+    private JSONObject sortResultsByPrice(JSONObject jsonObject, final String petrolType) {
+        try {
+            JSONArray resultsArray = jsonObject.getJSONArray("results");
+
+            List<JSONObject> resultList = new ArrayList<>();
+            for (int i = 0; i < resultsArray.length(); i++) {
+                resultList.add(resultsArray.getJSONObject(i));
+            }
+
+            resultList.sort(Comparator.comparingDouble(o -> {
+                try {
+                    Object prixObject = o.get("prix");
+                    if(prixObject instanceof String) {
+                        prixObject = new JSONArray((String) prixObject);
+                    }
+                    if(prixObject instanceof JSONArray) {
+                        JSONArray pricesArray = (JSONArray) prixObject;
+                        for(int j = 0; j < pricesArray.length(); j++) {
+                            JSONObject priceObject = pricesArray.getJSONObject(j);
+                            String fuelType = priceObject.getString("@nom");
+                            if(fuelType.equals(petrolType)) {
+                                return priceObject.getDouble("@valeur");
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return Double.MAX_VALUE;
+            }));
+            JSONArray sortedResultsArray = new JSONArray(resultList);
+            jsonObject.put("results", sortedResultsArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
 
     private JSONObject sortResultsByDistance(JSONObject jsonObject, final double targetLat, final double targetLon) {
         try {
