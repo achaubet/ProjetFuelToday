@@ -8,6 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@drawable/rounded_corner_top"
         android:orientation="vertical">
 
 
@@ -17,14 +20,14 @@
             android:layout_height="wrap_content"
             android:text="@string/text_adr"
             android:textColor="@color/white"
-            android:background="@color/dark_grey"
+            android:layout_marginLeft="20dp"
             android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/backgroundlinear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/green"
+            android:background="@drawable/rounded_corner_bottomgreen"
             android:orientation="horizontal">
 
             <LinearLayout
