@@ -61,13 +61,15 @@ public class ListFuelStations {
                         break;
                 }
             }
-
-            JSONArray servicesArray = firstResult.getJSONArray("services_service");
             Set<String> servicesSet = new HashSet<>();
-            for (int j = 0; j < servicesArray.length(); j++) {
-                servicesSet.add(servicesArray.getString(j));
+            try {
+                JSONArray servicesArray = firstResult.getJSONArray("services_service");
+                for (int j = 0; j < servicesArray.length(); j++) {
+                    servicesSet.add(servicesArray.getString(j));
+                }
+            } catch(JSONException e) {
+                e.printStackTrace();
             }
-
             Station station = new Station(id, latitude, longitude, cp, pop, address, city, sp95_prix, e10_prix, sp98_prix, gasoilPrix, servicesSet);
             stationList.add(station);
         }
