@@ -1,14 +1,19 @@
 package fr.univpau.fueltoday;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -43,21 +48,12 @@ public class StationAdapter extends BaseAdapter {
             //convertView = LayoutInflater.from(context).inflate(R.layout.list_item_station, parent, false);
             convertView = LayoutInflater.from(context).inflate(R.layout.best_station, parent, false);
         }
-/*
-        TextView idTextView = convertView.findViewById(R.id.idTextView);
-        TextView addressTextView = convertView.findViewById(R.id.addressTextView);
-        TextView cityTextView = convertView.findViewById(R.id.cityTextView);
 
-        Station station = (Station) getItem(position);
-
-        idTextView.setText(String.valueOf(station.id));
-        addressTextView.setText(station.address);
-        cityTextView.setText(station.city);
-*/
         TextView textAdr = convertView.findViewById(R.id.textAdr);
         TextView textPrix = convertView.findViewById(R.id.textPrix);
         TextView textOuv = convertView.findViewById(R.id.textOuv);
         TextView textDist = convertView.findViewById(R.id.textDist);
+        ImageButton imageButton = convertView.findViewById(R.id.imageButton);
 
         LinearLayout backgroundlinear = convertView.findViewById(R.id.backgroundlinear);
 
@@ -66,35 +62,74 @@ public class StationAdapter extends BaseAdapter {
         String adresseVille = station.address + ", " + station.city;
 
         textAdr.setText(adresseVille);
+        textOuv.setText(StationsShared.getInstance().carburant);
         textPrix.setText(String.valueOf(station.id)); // id pour le moment mais faudra récup le prix plus tard
         if ( station.id < 64140005) {
-            backgroundlinear.setBackgroundColor(Color.parseColor("#e8712d"));           // modifier pour que ce soit en fonction du prix la couleur
+            //backgroundlinear.setBackgroundColor(Color.parseColor("#e8712d"));           // modifier pour que ce soit en fonction du prix la couleur
+            backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomorange);
         }
 
         Log.d("lalong", "getView: " + station.latitude);
 
-        String testval = String.valueOf(distance(43.33154091, -0.37036942, station.latitude, station.longitude));
+        double latutil = StationsShared.getInstance().latitude;
+        double lonutil = StationsShared.getInstance().latitude;
+        String dist = String.valueOf(calculateDistance(latutil, lonutil, station.latitude, station.longitude) / 1000);
 
+        textDist.setText(dist + "km");
+
+        Log.i("cladistutillat", "cladistlatu" + StationsShared.getInstance().latitude);
+        Log.i("cladistutillong", "cladistlon" + StationsShared.getInstance().longitude);
         Log.i("cladistlat", "cladist " + station.latitude);
         Log.i("cladistlon", "cladist " + station.longitude);
-        Log.i("distance", "cladist " + testval);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Latitude et longitude de la station
+                double stationLatitude = station.latitude;
+                double stationLongitude = station.longitude;
+                String stationCity = station.city;
+                String stationAddress = station.address;
+                String uri;
+
+                String encodedAdress = Uri.encode(stationAddress + "," + stationCity);
+                if (adresseCommenceParNombre(stationAddress)) {
+                    uri = "geo:" + stationLatitude + "," + stationLongitude + "?q=" + stationLatitude + "," + stationLongitude + "(" + encodedAdress + ")";
+                } else {
+                    uri = "geo:" + stationLatitude + "," + stationLongitude + "?q=" + stationLatitude + "," + stationLongitude;
+                }
+
+                Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+
+                context.startActivity(Intent.createChooser(mapIntent, "Choisir une application de cartographie"));
+            }
+        });
 
 
         return convertView;
     }
+    private boolean adresseCommenceParNombre(String adresse) {
+        return adresse.matches("^\\d.*");
+    }
 
-    private double distance(double lat1, double lon1, double lat2, double
-            lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        return (dist); }
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
+        double EARTH_RADIUS = 6371.0;
+        double deltaLat = lat2Rad - lat1Rad;
+        double deltaLon = lon2Rad - lon1Rad;
+
+        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
+                + Math.cos(lat1Rad) * Math.cos(lat2Rad)
+                * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = EARTH_RADIUS * c;
+
+        return distance;
+    }
+
 
     private double deg2rad(double deg) {
         return (deg * Math.PI / 180.0); }
