@@ -26,7 +26,7 @@
         <LinearLayout
             android:id="@+id/backgroundlinear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:background="@drawable/rounded_corner_bottomgreen"
             android:orientation="horizontal">
 
@@ -35,12 +35,14 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="40px"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:text="sddssdf" />
 
                 <TextView
@@ -56,6 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="80px"
                 android:layout_marginRight="80px"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -74,13 +77,15 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    app:srcCompat="@android:drawable/ic_dialog_map" />
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/arrow75px" />
 
             </LinearLayout>
 
