@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         this.activity = activity;
         this.httpClient = new OkHttpClient();
     }
+
     @Override
     protected JSONObject doInBackground(String... strings) {
         String petrolType = StationsShared.getInstance().carburant;
@@ -42,6 +44,7 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         try (Response response = this.httpClient.newCall(request).execute()) {
             String str_resp = response.body().string();
             JSONObject jsonObject = new JSONObject(str_resp);
+            jsonObject = sortByServices(jsonObject, services);
             if(sortBy.equals("byLocation")) {
                 jsonObject = sortResultsByDistance(jsonObject, lat, lon);
             } else if (sortBy.equals("byPrice")) {
@@ -92,7 +95,6 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         return jsonObject;
     }
 
-
     private JSONObject sortResultsByDistance(JSONObject jsonObject, final double targetLat, final double targetLon) {
         try {
             JSONArray resultsArray = jsonObject.getJSONArray("results");
@@ -121,6 +123,55 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         return jsonObject;
     }
 
+    private JSONObject sortByServices(JSONObject jsonObject, Set<String> selectedServices) {
+        try {
+            JSONArray resultsArray = jsonObject.getJSONArray("results");
+            JSONArray filteredResultsArray = new JSONArray();
+
+            for(int i = 0; i < resultsArray.length(); i++) {
+                JSONObject stationObject = resultsArray.getJSONObject(i);
+                Object servicesField = stationObject.get("services");
+
+                if(servicesField instanceof String) {
+                    try {
+                        servicesField = new JSONObject((String) servicesField);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+                }
+
+                JSONArray stationServices;
+                if (servicesField instanceof JSONObject) {
+                    stationServices = ((JSONObject) servicesField).optJSONArray("service");
+                    if (stationServices == null) {
+                        stationServices = new JSONArray();
+                        stationServices.put(((JSONObject) servicesField).optString("service"));
+                    }
+                } else if (servicesField instanceof JSONArray) {
+                    stationServices = (JSONArray) servicesField;
+                } else {
+                    continue;
+                }
+
+                Set<String> stationServiceSet = new HashSet<>();
+                for (int j = 0; j < stationServices.length(); j++) {
+                    String service = stationServices.getString(j);
+                    stationServiceSet.add(service);
+                }
+
+                if (stationServiceSet.containsAll(selectedServices)) {
+                    filteredResultsArray.put(stationObject);
+                }
+            }
+            jsonObject.put("results", filteredResultsArray);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
     private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         double lat1Rad = Math.toRadians(lat1);
         double lon1Rad = Math.toRadians(lon1);
@@ -138,6 +189,7 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         
         return distance;
     }
+
     @Override
     protected void onPostExecute(JSONObject result) {
         this.activity.updateStations(result); // callback

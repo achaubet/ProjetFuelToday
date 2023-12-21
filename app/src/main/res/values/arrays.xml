@@ -39,28 +39,28 @@
     </string-array>
 
     <string-array name="service_values">
-        <item>automate_cb_24_24</item>
-        <item>bar</item>
-        <item>bornes_electriques</item>
-        <item>boutique_alimentaire</item>
-        <item>boutique_non_alimentaire</item>
-        <item>carburant_additive</item>
-        <item>dab_distributeur_automatique_de_billets</item>
-        <item>lavage_automatique</item>
-        <item>lavage_manuel</item>
-        <item>location_de_vehicule</item>
-        <item>piste_poids_lourds</item>
-        <item>relais_colis</item>
-        <item>restauration_a_emporter</item>
-        <item>restauration_sur_place</item>
-        <item>services_reparation_entretien</item>
-        <item>station_de_gonflage</item>
-        <item>toilettes_publiques</item>
-        <item>vente_additifs_carburants</item>
-        <item>vente_de_fioul_domestique</item>
-        <item>vente_de_gaz_domestique_butane_propane</item>
-        <item>vente_de_petrole_lampant</item>
-        <item>wifi</item>
+        <item>Automate CB 24/24</item>
+        <item>Bar</item>
+        <item>Bornes électriques</item>
+        <item>Boutique alimentaire</item>
+        <item>Boutique non alimentaire</item>
+        <item>Carburant additivé</item>
+        <item>DAB (Distributeur automatique de billets)</item>
+        <item>Lavage automatique</item>
+        <item>Lavage manuel</item>
+        <item>Location de véhicule</item>
+        <item>Piste poids lourds</item>
+        <item>Relais colis</item>
+        <item>Restauration à emporter</item>
+        <item>Restauration sur place</item>
+        <item>Services réparation / entretien</item>
+        <item>Station de gonflage</item>
+        <item>Toilettes publiques</item>
+        <item>Vente d\'additifs carburants</item>
+        <item>Vente de fioul domestique</item>
+        <item>Vente de gaz domestique (Butane, Propane)</item>
+        <item>Vente de pétrole lampant</item>
+        <item>Wifi</item>
     </string-array>
 
     <string-array name="sort_types">
