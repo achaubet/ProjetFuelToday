@@ -44,7 +44,9 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         try (Response response = this.httpClient.newCall(request).execute()) {
             String str_resp = response.body().string();
             JSONObject jsonObject = new JSONObject(str_resp);
-            jsonObject = sortByServices(jsonObject, services);
+            if(services != null) {
+                jsonObject = sortByServices(jsonObject, services);
+            }
             if(sortBy.equals("byLocation")) {
                 jsonObject = sortResultsByDistance(jsonObject, lat, lon);
             } else if (sortBy.equals("byPrice")) {
@@ -142,9 +144,9 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
                 }
 
                 JSONArray stationServices;
-                if (servicesField instanceof JSONObject) {
+                if(servicesField instanceof JSONObject) {
                     stationServices = ((JSONObject) servicesField).optJSONArray("service");
-                    if (stationServices == null) {
+                    if(stationServices == null) {
                         stationServices = new JSONArray();
                         stationServices.put(((JSONObject) servicesField).optString("service"));
                     }
@@ -155,17 +157,16 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
                 }
 
                 Set<String> stationServiceSet = new HashSet<>();
-                for (int j = 0; j < stationServices.length(); j++) {
+                for(int j = 0; j < stationServices.length(); j++) {
                     String service = stationServices.getString(j);
                     stationServiceSet.add(service);
                 }
 
-                if (stationServiceSet.containsAll(selectedServices)) {
+                if(stationServiceSet.containsAll(selectedServices)) {
                     filteredResultsArray.put(stationObject);
                 }
             }
             jsonObject.put("results", filteredResultsArray);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
