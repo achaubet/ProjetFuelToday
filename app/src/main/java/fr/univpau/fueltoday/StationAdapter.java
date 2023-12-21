@@ -77,7 +77,7 @@ public class StationAdapter extends BaseAdapter {
             case "SP98":
                 prix = station.sp98_prix;
                 break;
-            case "Gasoil":
+            case "Gazole":
                 prix = station.gasoil_prix;
                 break;
             default:
