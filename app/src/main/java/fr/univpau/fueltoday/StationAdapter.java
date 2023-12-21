@@ -84,7 +84,7 @@ public class StationAdapter extends BaseAdapter {
                 prix = 0;
                 break;
         }
-        textPrix.setText(String.valueOf(prix));
+        textPrix.setText(String.valueOf(prix) + "€");
         if ( prix >= 1.86) {
             //backgroundlinear.setBackgroundColor(Color.parseColor("#e8712d"));           // modifier pour que ce soit en fonction du prix la couleur
             backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomred);

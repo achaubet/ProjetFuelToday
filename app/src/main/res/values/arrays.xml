@@ -14,6 +14,7 @@
     </string-array>
 
     <string-array name="service_types">
+        <item>Aire de camping-cars</item>
         <item>Automate CB 24/24</item>
         <item>Bar</item>
         <item>Bornes électriques</item>
@@ -21,8 +22,12 @@
         <item>Boutique non alimentaire</item>
         <item>Carburant additivé</item>
         <item>DAB (Distributeur automatique de billets)</item>
+        <item>Douches</item>
+        <item>Espace bébé</item>
+        <item>GNV</item>
         <item>Lavage automatique</item>
         <item>Lavage manuel</item>
+        <item>Laverie</item>
         <item>Location de véhicule</item>
         <item>Piste poids lourds</item>
         <item>Relais colis</item>
@@ -39,6 +44,7 @@
     </string-array>
 
     <string-array name="service_values">
+        <item>Aire de camping-cars</item>
         <item>Automate CB 24/24</item>
         <item>Bar</item>
         <item>Bornes électriques</item>
@@ -46,8 +52,12 @@
         <item>Boutique non alimentaire</item>
         <item>Carburant additivé</item>
         <item>DAB (Distributeur automatique de billets)</item>
+        <item>Douches</item>
+        <item>Espace bébé</item>
+        <item>GNV</item>
         <item>Lavage automatique</item>
         <item>Lavage manuel</item>
+        <item>Laverie</item>
         <item>Location de véhicule</item>
         <item>Piste poids lourds</item>
         <item>Relais colis</item>
