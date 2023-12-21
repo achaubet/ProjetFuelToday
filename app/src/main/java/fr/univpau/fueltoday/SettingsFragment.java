@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.preference.PreferenceFragmentCompat;
 
+import java.util.Set;
+
 
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
@@ -31,9 +33,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if(key.equals("radius_key")) {
             int radiusValue = sharedPreferences.getInt("radius_key", 5);
             Log.i("updatedPref", "Radius: " + radiusValue + " km");
-        }else if(key.equals("petrol_type_key")) {
+        } else if (key.equals("petrol_type_key")) {
             String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "undefined");
             Log.i("updatedPref", "Petrol Type: " + petrolTypeValue);
+        } else if (key.equals("services_type_key")) {
+            Set<String> services =  sharedPreferences.getStringSet("services_type_key", null);
+            services.forEach((str) -> {
+                Log.i("updatedPref", "Service type: " + str);
+            });
         }
     }
 }

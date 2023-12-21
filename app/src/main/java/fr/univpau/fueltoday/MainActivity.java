@@ -24,6 +24,8 @@ import android.view.MenuItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
     Location gps_loc;
     LocationManager locationManager;
@@ -122,9 +124,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         int radiusValue = sharedPreferences.getInt("radius_key", 5);
         String petrolTypeValue = sharedPreferences.getString("petrol_type_key", "undefined");
-        // Log.i("getPreferences", radiusValue);
-        // Log.i("getPreferences", petrolTypeValue);
+        String sortBy = sharedPreferences.getString("prefered_sort_key", "byLocation");
+        Set<String> services = sharedPreferences.getStringSet("services_type_key", null);
         StationsShared.getInstance().rayon = radiusValue;
         StationsShared.getInstance().carburant = petrolTypeValue;
+        StationsShared.getInstance().services = services;
+        StationsShared.getInstance().sortBy = sortBy;
     }
 }

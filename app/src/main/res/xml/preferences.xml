@@ -14,7 +14,7 @@
             app:showSeekBarValue="true" />
 
         <ListPreference
-            android:defaultValue="undefined"
+            android:defaultValue="sp95"
             android:dialogTitle="@string/fuel_type_title"
             android:entries="@array/petrol_types"
             android:entryValues="@array/petrol_values"
@@ -22,6 +22,21 @@
             android:summary="@string/fuel_type_desc"
             android:title="@string/fuel_type" />
 
+        <MultiSelectListPreference
+            android:title="@string/service_types"
+            android:summary="@string/service_types_desc"
+            android:entries="@array/service_types"
+            android:entryValues="@array/service_values"
+            android:key="services_type_key"/>
+
+        <ListPreference
+            android:defaultValue="byLocation"
+            android:dialogTitle="@string/sort_by_title"
+            android:entries="@array/sort_types"
+            android:entryValues="@array/sort_values"
+            android:key="prefered_sort_key"
+            android:summary="@string/sort_by_title_desc"
+            android:title="@string/sort_by_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

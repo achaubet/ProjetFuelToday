@@ -9,6 +9,10 @@
     <string name="radius_desc">Définir le rayon</string>
     <string name="radius_title">Entrez le Rayon</string>
     <string name="fuel_type">Type de Carburant</string>
-    <string name="fuel_type_desc">Définir le type de Carburant</string>
-    <string name="fuel_type_title">Choissisez votre type de carburant</string>
+    <string name="fuel_type_desc">Définir le type de carburant à comparer</string>
+    <string name="fuel_type_title">Choissisez le type de carburant à comparer</string>
+    <string name="service_types">Types de services</string>
+    <string name="service_types_desc">Choix des services offerts par la station</string>
+    <string name="sort_by_title">Ordre des éléments</string>
+    <string name="sort_by_title_desc">Trier par prix ou par localisation</string>
 </resources>
