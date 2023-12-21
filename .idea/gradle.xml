@@ -15,6 +15,12 @@
         </option>
         <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="/import/etud/46/ttaupiac/Documents/M2/android" />
+        <option name="gradleJvm" value="jbr-17" />
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
