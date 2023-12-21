@@ -80,6 +80,12 @@ public class StationAdapter extends BaseAdapter {
             case "Gazole":
                 prix = station.gasoil_prix;
                 break;
+            case "E85":
+                prix = station.e85_prix;
+                break;
+            case "GPLc":
+                prix = station.gplc_prix;
+                break;
             default:
                 prix = 0;
                 break;

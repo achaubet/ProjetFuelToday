@@ -41,6 +41,8 @@ public class ListFuelStations {
             double e10_prix = 0.0;
             double sp98_prix = 0.0;
             double gasoilPrix = 0.0;
+            double gplcprix = 0.0;
+            double e85_prix = 0.0;
 
             for (int j = 0; j < prixArray.length(); j++) {
                 JSONObject prixObject = prixArray.getJSONObject(j);
@@ -59,6 +61,12 @@ public class ListFuelStations {
                     case "Gazole":
                         gasoilPrix = valeur;
                         break;
+                    case "GPLc":
+                        gplcprix = valeur;
+                        break;
+                    case "E85":
+                        e85_prix = valeur;
+                        break;
                 }
             }
             Set<String> servicesSet = new HashSet<>();
@@ -70,7 +78,7 @@ public class ListFuelStations {
             } catch(JSONException e) {
                 e.printStackTrace();
             }
-            Station station = new Station(id, latitude, longitude, cp, pop, address, city, sp95_prix, e10_prix, sp98_prix, gasoilPrix, servicesSet);
+            Station station = new Station(id, latitude, longitude, cp, pop, address, city, sp95_prix, e10_prix, sp98_prix, gasoilPrix, gplcprix, e85_prix, servicesSet);
             stationList.add(station);
         }
         StationAdapter adapter = new StationAdapter(activity, stationList);

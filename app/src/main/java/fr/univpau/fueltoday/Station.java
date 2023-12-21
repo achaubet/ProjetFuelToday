@@ -14,8 +14,10 @@ public class Station {
     public double e10_prix;
     public double sp98_prix;
     public double gasoil_prix;
+    public double gplc_prix;
+    public double e85_prix;
     public Set<String> services;
-    public Station(int id, double latitude, double longitude, String cp, String pop, String address, String city, double sp95_prix, double e10_prix, double sp98_prix, double gasoil_prix, Set<String> services) {
+    public Station(int id, double latitude, double longitude, String cp, String pop, String address, String city, double sp95_prix, double e10_prix, double sp98_prix, double gasoil_prix, double gplc_prix, double e85_prix, Set<String> services) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -27,6 +29,8 @@ public class Station {
         this.e10_prix = e10_prix;
         this.sp98_prix = sp98_prix;
         this.gasoil_prix = gasoil_prix;
+        this.gplc_prix = gplc_prix;
+        this.e85_prix = e85_prix;
         this.services = services;
     }
 
