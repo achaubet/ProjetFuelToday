@@ -38,7 +38,6 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         int km = StationsShared.getInstance().rayon;
         int limit = 100;
         String url = "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records?where=within_distance(geom%2C%20GEOM%27POINT(" + lon + "%20" + lat + ")%27%2C%20" + km + "km)&limit=" + limit +"&refine=carburants_disponibles%3A%22" + petrolType +"%22";
-        Log.i("SHOWURL", "url: " + url);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
