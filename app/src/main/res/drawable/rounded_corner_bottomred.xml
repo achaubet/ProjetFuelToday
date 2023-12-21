@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners
+        android:bottomLeftRadius="8dp"
+        android:bottomRightRadius="8dp"/> <!-- Ajustez la valeur de radius selon vos préférences -->
+    <solid android:color="@color/red" /> <!-- Couleur de fond -->
+    <stroke
+        android:color="@android:color/black"
+        android:width="1dp" /> <!-- Couleur et épaisseur de la bordure -->
+</shape>
