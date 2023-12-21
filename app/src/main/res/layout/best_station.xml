@@ -39,11 +39,11 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textEssence"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="sddssdf" />
+                    android:text="@string/type_essence" />
 
                 <TextView
                     android:id="@+id/textPrix"

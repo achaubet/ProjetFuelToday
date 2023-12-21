@@ -4,6 +4,7 @@
     <string name="text_prix">default_cost</string>
     <string name="text_dist">default_dist</string>
     <string name="text_ouv">default_ouv</string>
+    <string name="type_essence">type_essence</string>
     <string name="settings_name">Paramètres de Fuel Today</string>
     <string name="radius">Rayon de Recherche</string>
     <string name="radius_desc">Définir le rayon</string>

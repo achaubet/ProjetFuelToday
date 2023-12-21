@@ -51,7 +51,7 @@ public class StationAdapter extends BaseAdapter {
 
         TextView textAdr = convertView.findViewById(R.id.textAdr);
         TextView textPrix = convertView.findViewById(R.id.textPrix);
-        TextView textOuv = convertView.findViewById(R.id.textOuv);
+        TextView textEssence = convertView.findViewById(R.id.textEssence);
         TextView textDist = convertView.findViewById(R.id.textDist);
         ImageButton imageButton = convertView.findViewById(R.id.imageButton);
 
@@ -62,10 +62,33 @@ public class StationAdapter extends BaseAdapter {
         String adresseVille = station.address + ", " + station.city;
 
         textAdr.setText(adresseVille);
-        textOuv.setText(StationsShared.getInstance().carburant);
-        textPrix.setText(String.valueOf(station.id)); // id pour le moment mais faudra récup le prix plus tard
-        if ( station.id < 64140005) {
+        textEssence.setText(StationsShared.getInstance().carburant);
+
+
+        String carburant = String.valueOf(StationsShared.getInstance().carburant);
+        double prix = 0;  // Initialisation par défaut du prix
+        switch (carburant) {
+            case "SP95":
+                prix = station.sp95_prix;
+                break;
+            case "E10":
+                prix = station.e10_prix;
+                break;
+            case "SP98":
+                prix = station.sp98_prix;
+                break;
+            case "Gasoil":
+                prix = station.gasoil_prix;
+                break;
+            default:
+                prix = 0;
+                break;
+        }
+        textPrix.setText(String.valueOf(prix));
+        if ( prix >= 1.86) {
             //backgroundlinear.setBackgroundColor(Color.parseColor("#e8712d"));           // modifier pour que ce soit en fonction du prix la couleur
+            backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomred);
+        } else if (prix >= 1.82) {
             backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomorange);
         }
 
