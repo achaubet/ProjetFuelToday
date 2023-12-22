@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class StationAdapter extends BaseAdapter {
@@ -101,10 +103,22 @@ public class StationAdapter extends BaseAdapter {
         Log.d("lalong", "getView: " + station.latitude);
 
         double latutil = StationsShared.getInstance().latitude;
-        double lonutil = StationsShared.getInstance().latitude;
-        String dist = String.valueOf(calculateDistance(latutil, lonutil, station.latitude, station.longitude) / 1000);
+        double lonutil = StationsShared.getInstance().longitude;
 
-        textDist.setText(dist + "km");
+
+        Location startPoint = new Location("locationA");
+        startPoint.setLatitude(latutil);
+        startPoint.setLongitude(lonutil);
+        Location endPoint = new Location("locationA");
+        endPoint.setLatitude(station.latitude);
+        endPoint.setLongitude(station.longitude);
+        double distance = startPoint.distanceTo(endPoint);
+
+        double dist = distance / 1000;
+        DecimalFormat decimaldist = new DecimalFormat("#.#");
+        String distarrondi = decimaldist.format(dist);
+
+        textDist.setText(distarrondi + "km");
 
         Log.i("cladistutillat", "cladistlatu" + StationsShared.getInstance().latitude);
         Log.i("cladistutillong", "cladistlon" + StationsShared.getInstance().longitude);
@@ -140,30 +154,5 @@ public class StationAdapter extends BaseAdapter {
     private boolean adresseCommenceParNombre(String adresse) {
         return adresse.matches("^\\d.*");
     }
-
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        double lat1Rad = Math.toRadians(lat1);
-        double lon1Rad = Math.toRadians(lon1);
-        double lat2Rad = Math.toRadians(lat2);
-        double lon2Rad = Math.toRadians(lon2);
-        double EARTH_RADIUS = 6371.0;
-        double deltaLat = lat2Rad - lat1Rad;
-        double deltaLon = lon2Rad - lon1Rad;
-
-        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
-                + Math.cos(lat1Rad) * Math.cos(lat2Rad)
-                * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = EARTH_RADIUS * c;
-
-        return distance;
-    }
-
-
-    private double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0); }
-
-    private double rad2deg(double rad) {
-        return (rad * 180.0 / Math.PI); }
 }
 
