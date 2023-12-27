@@ -59,6 +59,7 @@ public class StationAdapter extends BaseAdapter {
 
         LinearLayout backgroundlinear = convertView.findViewById(R.id.backgroundlinear);
 
+
         Station station = (Station) getItem(position);
 
         String adresseVille = station.address + ", " + station.city;
@@ -98,6 +99,8 @@ public class StationAdapter extends BaseAdapter {
             backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomred);
         } else if (prix >= 1.82) {
             backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomorange);
+        } else {
+            backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomgreen);
         }
 
         Log.d("lalong", "getView: " + station.latitude);
