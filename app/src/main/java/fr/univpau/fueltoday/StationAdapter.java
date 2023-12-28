@@ -69,7 +69,7 @@ public class StationAdapter extends BaseAdapter {
 
 
         String carburant = String.valueOf(StationsShared.getInstance().carburant);
-        double prix = 0;  // Initialisation par défaut du prix
+        double prix = 0.000;  // Initialisation par défaut du prix
         switch (carburant) {
             case "SP95":
                 prix = station.sp95_prix;
@@ -122,11 +122,6 @@ public class StationAdapter extends BaseAdapter {
 
         textDist.setText(distarrondi + "km");
 
-        Log.i("cladistutillat", "cladistlatu" + StationsShared.getInstance().latitude);
-        Log.i("cladistutillong", "cladistlon" + StationsShared.getInstance().longitude);
-        Log.i("cladistlat", "cladist " + station.latitude);
-        Log.i("cladistlon", "cladist " + station.longitude);
-
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +142,26 @@ public class StationAdapter extends BaseAdapter {
                 Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
 
                 context.startActivity(Intent.createChooser(mapIntent, "Choisir une application de cartographie"));
+            }
+        });
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Station selectedStation = (Station) getItem(position);
+                Log.i("POSITEM", "sqd" + String.valueOf(selectedStation));
+                Intent intent = new Intent(context, StationDetailActivity.class);
+
+                intent.putExtra("stationAdress", station.address);
+                intent.putExtra("stationSP95", String.valueOf(station.sp95_prix));
+                intent.putExtra("stationE10", String.valueOf(station.e10_prix));
+                intent.putExtra("stationE85", String.valueOf(station.e85_prix));
+                intent.putExtra("stationSP98", String.valueOf(station.sp98_prix));
+                intent.putExtra("stationGazole", String.valueOf(station.gasoil_prix));
+                intent.putExtra("stationGPLc", String.valueOf(station.gplc_prix));
+
+                // Démarrer l'activité
+                context.startActivity(intent);
             }
         });
 
