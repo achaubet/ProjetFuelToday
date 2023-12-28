@@ -21,6 +21,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         view.setBackgroundColor(getResources().getColor(R.color.grey));
+        //view.setBackgroundResource(R.drawable.rounded_corner_parameter);
 
         return view;
     }

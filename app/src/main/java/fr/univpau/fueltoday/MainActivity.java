@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         this.refreshListener = new RefreshListener(this);
         this.swipeRefreshLayout.setOnRefreshListener(this.refreshListener);
+
     }
 
     @Override
