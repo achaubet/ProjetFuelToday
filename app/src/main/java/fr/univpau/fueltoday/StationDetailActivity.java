@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class StationDetailActivity extends AppCompatActivity {
 
@@ -16,6 +23,20 @@ public class StationDetailActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
 
+            TextView textDist = findViewById(R.id.textDist);
+            TextView textEssence = findViewById(R.id.textEssence);
+            TextView textPrix = findViewById(R.id.textPrix);
+            TextView textAdresse = findViewById(R.id.textAdr);
+
+            String distanceDetail = extras.getString("distancedetail");
+            String typesDetail = extras.getString("typessdetail");
+            String adresseDetail = extras.getString("stationAdress");
+            Double prixDetail = extras.getDouble("prixdetail");
+
+            textDist.setText(distanceDetail + "km");
+            textEssence.setText(typesDetail);
+            textAdresse.setText(adresseDetail);
+            textPrix.setText(String.valueOf(prixDetail) + "€");
 
             TextView textSP95 = findViewById(R.id.textSP95);
             TextView textE10 = findViewById(R.id.textE10);
@@ -37,6 +58,12 @@ public class StationDetailActivity extends AppCompatActivity {
             textGazole.setText(prixGazole);
             textGPLc.setText(prixGPLc);
 
+            Set<String> services = new HashSet<>(getIntent().getStringArrayListExtra("servicesdetail"));
+            List<String> servicesList = new ArrayList<>(services);
+            RecyclerView recyclerView = findViewById(R.id.listServices);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            ServicesAdapter adapter = new ServicesAdapter(servicesList);
+            recyclerView.setAdapter(adapter);
         }
     }
 }

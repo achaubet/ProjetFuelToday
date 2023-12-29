@@ -17,7 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StationAdapter extends BaseAdapter {
 
@@ -69,7 +72,8 @@ public class StationAdapter extends BaseAdapter {
 
 
         String carburant = String.valueOf(StationsShared.getInstance().carburant);
-        double prix = 0.000;  // Initialisation par défaut du prix
+
+        double prix = 0.0;
         switch (carburant) {
             case "SP95":
                 prix = station.sp95_prix;
@@ -93,6 +97,8 @@ public class StationAdapter extends BaseAdapter {
                 prix = 0;
                 break;
         }
+
+        final double prixFinal = prix;
         textPrix.setText(String.valueOf(prix) + "€");
         if ( prix >= 1.86) {
             backgroundlinear.setBackgroundResource(R.drawable.rounded_corner_bottomred);
@@ -122,32 +128,12 @@ public class StationAdapter extends BaseAdapter {
 
         textDist.setText(distarrondi + "km");
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Latitude et longitude de la station
-                double stationLatitude = station.latitude;
-                double stationLongitude = station.longitude;
-                String stationCity = station.city;
-                String stationAddress = station.address;
-                String uri;
-
-                String encodedAdress = Uri.encode(stationAddress + "," + stationCity);
-                if (adresseCommenceParNombre(stationAddress)) {
-                    uri = "geo:" + stationLatitude + "," + stationLongitude + "?q=" + stationLatitude + "," + stationLongitude + "(" + encodedAdress + ")";
-                } else {
-                    uri = "geo:" + stationLatitude + "," + stationLongitude + "?q=" + stationLatitude + "," + stationLongitude;
-                }
-
-                Intent mapIntent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-
-                context.startActivity(Intent.createChooser(mapIntent, "Choisir une application de cartographie"));
-            }
-        });
+        imageButton.setOnClickListener(new MapButtonClickListener(context, station));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Set<String> serv = station.services;
                 Station selectedStation = (Station) getItem(position);
                 Log.i("POSITEM", "sqd" + String.valueOf(selectedStation));
                 Intent intent = new Intent(context, StationDetailActivity.class);
@@ -159,6 +145,13 @@ public class StationAdapter extends BaseAdapter {
                 intent.putExtra("stationSP98", String.valueOf(station.sp98_prix));
                 intent.putExtra("stationGazole", String.valueOf(station.gasoil_prix));
                 intent.putExtra("stationGPLc", String.valueOf(station.gplc_prix));
+
+                intent.putExtra("distancedetail", distarrondi);
+                intent.putExtra("typessdetail", carburant);
+                intent.putExtra("prixdetail", prixFinal);
+
+                ArrayList<String> servicesList = new ArrayList<>(serv);
+                intent.putStringArrayListExtra("servicesdetail", servicesList);
 
                 // Démarrer l'activité
                 context.startActivity(intent);

@@ -16,4 +16,7 @@
     <string name="service_types_desc">Choix des services offerts par la station</string>
     <string name="sort_by_title">Ordre des éléments</string>
     <string name="sort_by_title_desc">Trier par prix ou par localisation</string>
+    <string name="textCarbu">Carburants</string>
+    <string name="textinfogen">Résumé</string>
+    <string name="Listserv">Liste des services</string>
 </resources>
