@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="preferencesTextColor">#ffffff</color>
-    <color name="preferencesBackgroundColor">#202020</color>
+    <color name="preferencesTextColorSecondary">#B4B6B6</color>
+    <color name="preferencesBackgroundColor">@color/grey</color>
 
     <style name="MyPreferencesTheme" parent="Theme.ProjetFuelToday">
-        <item name="android:textColor">@color/preferencesTextColor</item>
-        <item name="android:textColorSecondary">@color/preferencesTextColor</item>
+        <item name="android:textColorPrimary">@color/preferencesTextColor</item>
+        <item name="android:textColorSecondary">@color/preferencesTextColorSecondary</item>
+        <item name="android:textColorAlertDialogListItem">@color/black</item>
+        <item name="android:titleTextColor">@color/black</item>
     </style>
 
+    <style name="MyPreferencesThemeDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/grey</item>
+    </style>
 </resources>

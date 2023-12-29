@@ -63,17 +63,4 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         }
     }
 
-    private void setTextColorForPreferenceScreen(PreferenceGroup preferenceGroup, int textColor) {
-        int preferenceCount = preferenceGroup.getPreferenceCount();
-        for (int i = 0; i < preferenceCount; i++) {
-            Preference preference = preferenceGroup.getPreference(i);
-            if (preference instanceof PreferenceGroup) {
-                setTextColorForPreferenceScreen((PreferenceGroup) preference, textColor);
-            } else {
-                // Use custom layout for setting text color
-                preference.setLayoutResource(R.layout.activity_settings);
-                preference.setWidgetLayoutResource(0);
-            }
-        }
-    }
 }
