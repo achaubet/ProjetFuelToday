@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="preferencesTextColor">#ffffff</color>
+    <color name="preferencesBackgroundColor">#202020</color>
+
+    <style name="MyPreferencesTheme" parent="Theme.ProjetFuelToday">
+        <item name="android:textColor">@color/preferencesTextColor</item>
+        <item name="android:textColorSecondary">@color/preferencesTextColor</item>
+    </style>
+
+</resources>

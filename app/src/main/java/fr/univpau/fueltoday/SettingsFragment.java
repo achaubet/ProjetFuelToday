@@ -6,8 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroup;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.SeekBarPreference;
 
 import java.util.Set;
 
@@ -17,6 +23,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
@@ -25,6 +32,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
         return view;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -52,6 +60,20 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             services.forEach((str) -> {
                 Log.i("updatedPref", "Service type: " + str);
             });
+        }
+    }
+
+    private void setTextColorForPreferenceScreen(PreferenceGroup preferenceGroup, int textColor) {
+        int preferenceCount = preferenceGroup.getPreferenceCount();
+        for (int i = 0; i < preferenceCount; i++) {
+            Preference preference = preferenceGroup.getPreference(i);
+            if (preference instanceof PreferenceGroup) {
+                setTextColorForPreferenceScreen((PreferenceGroup) preference, textColor);
+            } else {
+                // Use custom layout for setting text color
+                preference.setLayoutResource(R.layout.activity_settings);
+                preference.setWidgetLayoutResource(0);
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             this.listFuelStations.updateStationsList();
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
