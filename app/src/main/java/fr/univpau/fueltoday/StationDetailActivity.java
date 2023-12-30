@@ -21,21 +21,26 @@ public class StationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station_detail);
         String value = "marchepas";
         Bundle extras = getIntent().getExtras();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (extras != null) {
 
             TextView textDist = findViewById(R.id.textDist);
             TextView textEssence = findViewById(R.id.textEssence);
             TextView textPrix = findViewById(R.id.textPrix);
             TextView textAdresse = findViewById(R.id.textAdr);
+            TextView textOuv = findViewById(R.id.textOuv);
+
 
             String distanceDetail = extras.getString("distancedetail");
             String typesDetail = extras.getString("typessdetail");
             String adresseDetail = extras.getString("stationAdress");
+            String openDetail = extras.getString("opendetail");
             Double prixDetail = extras.getDouble("prixdetail");
 
             textDist.setText(distanceDetail + "km");
             textEssence.setText(typesDetail);
             textAdresse.setText(adresseDetail);
+            textOuv.setText(openDetail);
             textPrix.setText(String.valueOf(prixDetail) + "€");
 
             TextView textSP95 = findViewById(R.id.textSP95);
@@ -65,6 +70,12 @@ public class StationDetailActivity extends AppCompatActivity {
             ServicesAdapter adapter = new ServicesAdapter(servicesList);
             recyclerView.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Termine l'activité et retourne à l'activité parente
+        return true;
     }
 }
 

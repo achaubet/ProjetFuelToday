@@ -58,6 +58,7 @@ public class StationAdapter extends BaseAdapter {
         TextView textPrix = convertView.findViewById(R.id.textPrix);
         TextView textEssence = convertView.findViewById(R.id.textEssence);
         TextView textDist = convertView.findViewById(R.id.textDist);
+        TextView textOuv = convertView.findViewById(R.id.textOuv);
         ImageButton imageButton = convertView.findViewById(R.id.imageButton);
 
         LinearLayout backgroundlinear = convertView.findViewById(R.id.backgroundlinear);
@@ -69,6 +70,7 @@ public class StationAdapter extends BaseAdapter {
 
         textAdr.setText(adresseVille);
         textEssence.setText(StationsShared.getInstance().carburant);
+        textOuv.setText(station.openalltime);
 
 
         String carburant = String.valueOf(StationsShared.getInstance().carburant);
@@ -149,6 +151,7 @@ public class StationAdapter extends BaseAdapter {
                 intent.putExtra("distancedetail", distarrondi);
                 intent.putExtra("typessdetail", carburant);
                 intent.putExtra("prixdetail", prixFinal);
+                intent.putExtra("opendetail", station.openalltime);
 
                 ArrayList<String> servicesList = new ArrayList<>(serv);
                 intent.putStringArrayListExtra("servicesdetail", servicesList);

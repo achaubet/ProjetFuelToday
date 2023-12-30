@@ -17,7 +17,8 @@ public class Station {
     public double gplc_prix;
     public double e85_prix;
     public Set<String> services;
-    public Station(int id, double latitude, double longitude, String cp, String pop, String address, String city, double sp95_prix, double e10_prix, double sp98_prix, double gasoil_prix, double gplc_prix, double e85_prix, Set<String> services) {
+    public String openalltime;
+    public Station(int id, double latitude, double longitude, String cp, String pop, String address, String city, double sp95_prix, double e10_prix, double sp98_prix, double gasoil_prix, double gplc_prix, double e85_prix, Set<String> services, String openalltime) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -32,6 +33,7 @@ public class Station {
         this.gplc_prix = gplc_prix;
         this.e85_prix = e85_prix;
         this.services = services;
+        this.openalltime = openalltime;
     }
 
 }

@@ -78,10 +78,29 @@ public class ListFuelStations {
             } catch(JSONException e) {
                 e.printStackTrace();
             }
-            Station station = new Station(id, latitude, longitude, cp, pop, address, city, sp95_prix, e10_prix, sp98_prix, gasoilPrix, gplcprix, e85_prix, servicesSet);
+            String openalltime = getStationStatusToday(firstResult);
+            Station station = new Station(id, latitude, longitude, cp, pop, address, city, sp95_prix, e10_prix, sp98_prix, gasoilPrix, gplcprix, e85_prix, servicesSet, openalltime);
             stationList.add(station);
         }
         StationAdapter adapter = new StationAdapter(activity, stationList);
         listView.setAdapter(adapter);
     }
+
+    private String getStationStatusToday(JSONObject stationData) {
+        try {
+            String openingHoursJson = stationData.optString("horaires", "{}");
+            JSONObject openingHoursObj = new JSONObject(openingHoursJson);
+
+            // Vérifiez si la station est ouverte 24/24
+            boolean is24Hours = openingHoursObj.optString("@automate-24-24", "0").equals("1");
+            if (is24Hours) {
+                return "Ouvert 24h/24";
+            }
+            return "Non ouvert 24/24"; // Si les horaires ne sont pas renseignés
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "Inconnue"; // Si erreur
+    }
+
 }
