@@ -44,6 +44,7 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
         try (Response response = this.httpClient.newCall(request).execute()) {
             String str_resp = response.body().string();
             JSONObject jsonObject = new JSONObject(str_resp);
+            Log.i("json_resp", jsonObject.toString());
             if(services != null) {
                 jsonObject = sortByServices(jsonObject, services);
             }
@@ -55,7 +56,7 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
             JSONArray resultsArray = jsonObject.getJSONArray("results");
             return jsonObject;
         } catch (IOException | JSONException e) {
-            return  null;
+            return null;
         }
     }
 

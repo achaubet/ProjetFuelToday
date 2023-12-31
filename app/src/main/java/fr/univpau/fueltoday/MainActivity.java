@@ -20,6 +20,7 @@ import android.Manifest;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,28 +40,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.listFuelStations = new ListFuelStations(this);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
-        this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        this.positionListener = new PositionListener();
-        this.updateLocation();
-        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
         this.getPreferences();
         this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         this.refreshListener = new RefreshListener(this);
         this.swipeRefreshLayout.setOnRefreshListener(this.refreshListener);
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestLocationPermissions();
+        } else {
+            startLocationManager();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         new StationRPC(this).execute();
+    }
 
+    protected void startLocationManager() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            this.positionListener = new PositionListener();
+            this.updateLocation();
+            this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, positionListener);
+        }
+    }
+
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
     }
 
     protected void updateStations(JSONObject stations) {
@@ -73,25 +83,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void updateLocation() {
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
-        try {
-            gps_loc = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (this.gps_loc != null) {
-            Location final_loc = this.gps_loc;
-            double latitude = final_loc.getLatitude();
-            double longitude = final_loc.getLongitude();
-            Log.i("LocationLat", String.valueOf(latitude));
-            Log.i("LocationLon", String.valueOf(longitude));
-            StationsShared.getInstance().latitude = latitude;
-            StationsShared.getInstance().longitude = longitude;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            try {
+                gps_loc = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (this.gps_loc != null) {
+                Location final_loc = this.gps_loc;
+                double latitude = final_loc.getLatitude();
+                double longitude = final_loc.getLongitude();
+                Log.i("LocationLat", String.valueOf(latitude));
+                Log.i("LocationLon", String.valueOf(longitude));
+                StationsShared.getInstance().latitude = latitude;
+                StationsShared.getInstance().longitude = longitude;
+            }
         }
     }
 
@@ -120,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 1) {
+                startLocationManager();
+            } else {
+                Toast.makeText(this, "Location permission denied, the application will not work as intended...", Toast.LENGTH_LONG).show();
+            }
+    }
+
 
     public void getPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
