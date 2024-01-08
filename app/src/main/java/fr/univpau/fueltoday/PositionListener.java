@@ -12,7 +12,7 @@ public class PositionListener implements LocationListener {
         // Log.i("Positions", longitude);
         // String latitude = "Latitude: " + location.getLatitude();
         // Log.i("Positions", latitude);
-        StationsShared.getInstance().latitude = location.getLongitude();
-        StationsShared.getInstance().longitude = location.getLatitude();
+        StationsShared.getInstance().latitude = location.getLatitude();
+        StationsShared.getInstance().longitude = location.getLongitude();
     }
 }
