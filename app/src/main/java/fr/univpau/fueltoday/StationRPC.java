@@ -194,7 +194,10 @@ public class StationRPC extends AsyncTask<String, Void, JSONObject> {
 
     @Override
     protected void onPostExecute(JSONObject result) {
-        this.activity.updateStations(result); // callback
+        if(result != null) {
+            this.activity.updateStations(result); // callback
+        }
+
         if(this.activity.refreshListener != null) {
             this.activity.refreshListener.onTaskCompleted();
         }
